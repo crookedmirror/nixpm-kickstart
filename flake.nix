@@ -12,23 +12,20 @@
 		};
 		
 		nixgl.url = "github:nix-community/nixGL";
-		
-		phoenix.url = "github:celenityy/Phoenix";
 	};
 
-	outputs = { nixpkgs, chaotic, home-manager, nixgl, phoenix, ... }@inputs:
+	outputs = { nixpkgs, chaotic, home-manager, nixgl, ... }@inputs:
 	let
 		system = "x86_64-linux";
 		homeStateVersion = "25.05";
 		user = "jarvis";
-		overlays = [ nixgl.overlay ];
 
 	in {
 		homeConfigurations.${user} = home-manager.lib.homeManagerConfiguration {
 			pkgs = nixpkgs.legacyPackages.${system};
 
 			extraSpecialArgs = {
-				inherit inputs homeStateVersion user overlays;
+				inherit inputs homeStateVersion user;
 			};
 			modules = [ 
 				./home-manager/home.nix 

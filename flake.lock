@@ -207,47 +207,12 @@
         "type": "github"
       }
     },
-    "nixpkgs_4": {
-      "locked": {
-        "lastModified": 1740560979,
-        "narHash": "sha256-Vr3Qi346M+8CjedtbyUevIGDZW8LcA1fTG0ugPY/Hic=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "5135c59491985879812717f4c9fea69604e7f26f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "nixos-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "phoenix": {
-      "inputs": {
-        "nixpkgs": "nixpkgs_4"
-      },
-      "locked": {
-        "lastModified": 1754811403,
-        "narHash": "sha256-wENxq1TsxffH2tMY8BWVVoCGhRLjofZwGPECEWG0Ur4=",
-        "owner": "celenityy",
-        "repo": "Phoenix",
-        "rev": "6a9847c141d70f46b38421a59ce0d54c5de8e418",
-        "type": "github"
-      },
-      "original": {
-        "owner": "celenityy",
-        "repo": "Phoenix",
-        "type": "github"
-      }
-    },
     "root": {
       "inputs": {
         "chaotic": "chaotic",
         "home-manager": "home-manager_2",
         "nixgl": "nixgl",
-        "nixpkgs": "nixpkgs_3",
-        "phoenix": "phoenix"
+        "nixpkgs": "nixpkgs_3"
       }
     },
     "rust-overlay": {
