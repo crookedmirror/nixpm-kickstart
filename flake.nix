@@ -12,9 +12,13 @@
 		};
 		
 		nixgl.url = "github:nix-community/nixGL";
+		spicetify = {
+            		url = "github:Gerg-L/spicetify-nix";
+            		inputs.nixpkgs.follows = "nixpkgs";
+		};
 	};
 
-	outputs = { nixpkgs, chaotic, home-manager, nixgl, ... }@inputs:
+	outputs = { nixpkgs, chaotic, home-manager, nixgl, spicetify, ... }@inputs:
 	let
 		system = "x86_64-linux";
 		homeStateVersion = "25.05";
@@ -30,6 +34,7 @@
 			modules = [ 
 				./home-manager/home.nix 
 				chaotic.homeManagerModules.default
+				spicetify.homeManagerModules.default
 			];
 		};
 	};

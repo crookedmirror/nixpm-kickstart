@@ -1,6 +1,6 @@
 {
 	imports = [
-		./bash.nix
+		./spicetify.nix
 	];
 
 }
