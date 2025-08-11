@@ -1,7 +1,8 @@
 {
-	imports = [
-		./mpv.nix
-		./spicetify.nix
-	];
+  imports = [
+    ./fish.nix
+    ./mpv.nix
+    ./spicetify.nix
+  ];
 
 }
