@@ -3,18 +3,19 @@
   description = "My system configuration";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.follows = "chaotic/nixpkgs";
+    home-manager.follows = "chaotic/home-manager";
+
     chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
+    nur.url = "github:nix-community/NUR";
 
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
+    nixgl = {
+      url = "github:nix-community/nixGL";
+      inputs.nixpkgs.follows = "chaotic/nixpkgs";
     };
-
-    nixgl.url = "github:nix-community/nixGL";
     spicetify = {
       url = "github:Gerg-L/spicetify-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "chaotic/nixpkgs";
     };
   };
 
@@ -25,25 +26,30 @@
       home-manager,
       nixgl,
       spicetify,
+      nur,
       ...
     }@inputs:
     let
       system = "x86_64-linux";
       homeStateVersion = "25.05";
       user = "jarvis";
-
     in
     {
       homeConfigurations.${user} = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.${system};
 
         extraSpecialArgs = {
-          inherit inputs homeStateVersion user;
+          inherit
+            inputs
+            homeStateVersion
+            user
+            ;
         };
         modules = [
           ./home-manager/home.nix
           chaotic.homeManagerModules.default
           spicetify.homeManagerModules.default
+          nur.modules.homeManager.default
         ];
       };
     };

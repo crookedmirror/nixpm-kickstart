@@ -2,6 +2,7 @@
   pkgs,
   inputs,
   config,
+  lib,
   ...
 }:
 {
@@ -12,12 +13,8 @@
     installScripts = [ "mesa" ];
   };
 
-  nixpkgs = {
-    config.allowUnfree = true;
-  };
-
   home.packages = with pkgs; [
-    fastfetch
+    #cli
     btop
     bat
     tree
@@ -27,21 +24,49 @@
     nix-top_abandoned # chaotic
     nixfmt-tree
 
+    #ui
+    ayugram-desktop
+    gimp3
+
     ungoogled-chromium
-    firefox_nightly # chaotic
     tor-browser-bundle-bin
   ];
 
   programs.neovim.enable = true;
   programs.direnv.enable = true;
 
-  programs.kitty = {
+  #TODO: on ubuntu -> not set automatically, had to execute:
+
+  programs.alacritty = {
     enable = true;
-    package = config.lib.nixGL.wrap pkgs.kitty;
+    package = config.lib.nixGL.wrap pkgs.alacritty_git; # chaotic
     settings = {
-      background_opacity = 0.8;
-      font_family = "Hack Nerd Font";
-      font_size = 13.0;
+      window.opacity = lib.mkForce 0.8;
+      font.normal.family = "Hack Nerd Font";
+      font.size = 13.0;
+      keyboard.bindings = lib.trivial.importJSON "${inputs.self}/assets/alacritty-key-bindings.json";
+      terminal.shell = {
+        program = "${pkgs.tmux}/bin/tmux";
+        args = [
+          "new-session"
+          "-A"
+          "-s"
+          "regular"
+        ];
+      };
     };
+  };
+
+  programs.tmux = {
+    enable = true;
+    clock24 = true;
+  };
+
+  home.file = {
+    ".tmux.conf".text = ''
+      set-option -g default-shell ${pkgs.fish}/bin/fish
+      set-option -ga terminal-overrides ",*256col*:Tc,alacritty:Tc"
+      set -g mouse off
+    '';
   };
 }
