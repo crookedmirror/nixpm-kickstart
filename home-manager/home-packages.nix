@@ -19,6 +19,7 @@
     bat
     tree
     p7zip
+    fzf
 
     nix-tree
     nix-top_abandoned # chaotic
@@ -36,7 +37,6 @@
   programs.direnv.enable = true;
 
   #TODO: on ubuntu -> not set automatically, had to execute:
-
   programs.alacritty = {
     enable = true;
     package = config.lib.nixGL.wrap pkgs.alacritty_git; # chaotic
@@ -56,17 +56,12 @@
       };
     };
   };
-
-  programs.tmux = {
-    enable = true;
-    clock24 = true;
-  };
-
   home.file = {
-    ".tmux.conf".text = ''
-      set-option -g default-shell ${pkgs.fish}/bin/fish
-      set-option -ga terminal-overrides ",*256col*:Tc,alacritty:Tc"
-      set -g mouse off
+    ".bashrc".text = ''
+      unset HISTFILE
+    '';
+    ".bash_profile".text = ''
+      [[ -f ~/.bashrc ]] && . ~/.bashrc
     '';
   };
 }

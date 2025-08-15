@@ -4,6 +4,7 @@
     ./librewolf.nix
     ./mpv.nix
     ./spicetify.nix
+    ./tmux.nix
   ];
 
 }
